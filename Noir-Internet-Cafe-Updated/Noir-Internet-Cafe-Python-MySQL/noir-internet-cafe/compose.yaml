@@ -1,0 +1,71 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-noir}
+      MYSQL_USER: ${DB_USER:-noir_app}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Run python scripts/configure.py first}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Run python scripts/configure.py first}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+  testdb:
+    image: mysql:8.4
+    profiles: [test]
+    environment:
+      MYSQL_DATABASE: noir_test
+      MYSQL_USER: noir_test
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Run python scripts/configure.py first}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Run python scripts/configure.py first}
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  test:
+    build: .
+    profiles: [test]
+    env_file: .env
+    environment:
+      DB_HOST: testdb
+      DB_PORT: 3306
+      DB_NAME: noir_test
+      DB_USER: noir_test
+      COOKIE_SECURE: "false"
+      TRUSTED_HOSTS: localhost
+      RUN_MYSQL_TESTS: "1"
+    command: ["python", "-m", "unittest", "discover", "-s", "tests", "-v"]
+    depends_on:
+      testdb:
+        condition: service_healthy
+volumes:
+  mysql_data:

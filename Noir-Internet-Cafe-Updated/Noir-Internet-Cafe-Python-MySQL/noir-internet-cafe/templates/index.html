@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="NOIR Internet Café — your space to connect.">
+  <title>NOIR / Internet Café</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v='20261013-2') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js', v='20261013-2') }}"></script>
+</head>
+<body>
+  <section id="authScreen" class="auth-screen" aria-label="Sign in">
+    <div class="auth-art">
+      <div class="brand"><div class="brand-mark">N/</div><div class="brand-name">NOIR<small>INTERNET CAFÉ</small></div></div>
+      <div class="auth-message"><div class="eyebrow">A SPACE TO CONNECT</div><h1>Your time.<br>Your space.<br>Your NOIR.</h1><p>Check in. Settle in. Make it yours.</p><div class="art-rings" aria-hidden="true"><span></span><span></span><span></span></div></div>
+      <div class="auth-art-footer"><span>FOCUS. PLAY. CONNECT.</span><span>EST. 2026</span></div>
+    </div>
+    <div class="auth-form-side"><div class="auth-box">
+      <div class="eyebrow">WELCOME TO NOIR</div><h2 id="authTitle">Welcome back.</h2><p id="authDescription">Sign in to your account to continue.</p>
+      <div class="auth-tabs" id="authTabs"><button class="selected" data-auth-mode="login" type="button">Sign in</button><button data-auth-mode="register" type="button">Create account</button></div>
+      <form id="authForm">
+        <div class="field" id="registerNameField" hidden><label for="authName">Full name</label><input id="authName" name="name" autocomplete="name" maxlength="80" minlength="2" placeholder="Your full name"></div>
+        <div class="field"><label for="authEmail">Email address</label><input id="authEmail" name="email" type="email" autocomplete="username" maxlength="254" placeholder="you@example.com" required></div>
+        <div class="field"><label for="authPassword">Password</label><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" placeholder="Enter your password" required></div>
+        <div class="field" id="confirmPasswordField" hidden><label for="authConfirm">Confirm password</label><input id="authConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Repeat your password"></div>
+        <p id="passwordHelp" class="hint" hidden>Use at least 12 characters.</p>
+        <div id="authError" class="form-error" role="alert" hidden></div>
+        <div id="authSuccess" class="form-success" role="status" hidden></div>
+        <button id="authSubmit" class="btn dark wide" type="submit" disabled>Connecting…</button>
+      </form>
+      <p class="auth-help" id="authHelp">Need account access? Contact your café Administrator.</p>
+      <div class="auth-bottom">NOIR INTERNET CAFÉ <span>YOUR SPACE, CONNECTED.</span></div>
+    </div></div>
+  </section>
+  <div id="appScreen" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">N/</div><div class="brand-name">NOIR<small>INTERNET CAFÉ</small></div></div>
+      <nav aria-label="Main navigation" id="navigation"></nav>
+      <div class="side-bottom"><div class="status-line"><i class="live-dot"></i><span id="connectionStatus">Connecting</span></div><p id="syncLabel">Syncing your café</p><button class="profile profile-button" data-nav="Profile" id="profileButton"></button><button class="sign-out" data-action="logout">Sign out ↗</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="breadcrumb">Workspace &nbsp;/&nbsp; <strong id="crumb">Overview</strong></div><div class="top-right"><span class="date" id="date"></span><button class="btn small" data-action="refresh" id="refreshButton">Refresh</button><button class="round-button" data-nav="Profile" aria-label="My account" id="mobileProfile">N</button><button class="btn small mobile-logout" data-action="logout">Sign out</button></div></header>
+      <div id="connectionError" class="connection-error" role="status" hidden></div>
+      <div id="content" aria-live="polite"></div>
+      <footer class="footer"><span>NOIR INTERNET CAFÉ</span><span id="footerTimezone"></span></footer>
+    </main>
+  </div>
+  <div id="modalRoot"></div><div id="toastRoot" aria-live="polite"></div>
+  <div id="printArea"></div>
+  <noscript><p>Enable JavaScript in your browser to use NOIR Internet Café.</p></noscript>
+</body>
+</html>

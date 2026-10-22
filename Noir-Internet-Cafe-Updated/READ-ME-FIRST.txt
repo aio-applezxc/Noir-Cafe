@@ -1,0 +1,24 @@
+NOIR - APPLICATION UPDATE AND ITEL 202 PROJECT PACKAGE
+
+1. APPLICATION
+Open Noir-Internet-Cafe-Python-MySQL/noir-internet-cafe in VS Code.
+Follow START-HERE.md. The folder must contain app.py and requirements.txt.
+
+If upgrading, preserve your original .env and MySQL database. Back up first.
+Create a fresh virtual environment if extracting to a new location; do not copy an old .venv.
+Run migrate-db before opening the updated app. The migration preserves existing records and adds inventory/maintenance tables.
+
+Admin pages now include Inventory, Maintenance and Reports. Enter the confirmed IP address at Inventory > Add/Edit device > IPv4 address. This records the address; configure DHCP reservations or the PC separately. Members cannot create bookings or access admin tools.
+
+2. PROJECT MATERIALS
+Project-Submission contains the 20-page PDF report, 18-slide PowerPoint, presentation script, hardware sheet, PDF and editable Draw.io network diagram, and submission checklist. The PDF cover has fillable team/section/instructor fields. A proposed 10-seat cafe is used because actual site size/budget were not supplied.
+
+The presentation uses DejaVu Sans. The two font files and their license are in Project-Submission/Fonts; install them if your PowerPoint substitutes a different font, then reopen the deck.
+
+3. WHAT STILL NEEDS LOCAL WORK
+The package includes design and code, not proof that your machines are configured. Collect actual OS/network/VM screenshots, run MySQL integration checks and a real isolated restore, measure performance, and rehearse with every team member. Follow SUBMISSION-CHECKLIST.txt. Do not claim those checks passed before running them.
+
+Local preparation checks: 24 Python tests passed; 9 live MySQL tests skipped. JavaScript syntax and DOM-stub checks passed. No real browser, PowerShell, router, Windows installation or MySQL server was available here.
+
+4. IMPORTANT FILES TO KEEP PRIVATE
+The archive deliberately excludes your .env, virtual environment, databases, backups and customer records. Copy your existing .env into the application folder when upgrading. Never submit its secrets.
